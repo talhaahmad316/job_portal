@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\User;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class AuthController extends Controller
 {
@@ -126,8 +129,18 @@ class AuthController extends Controller
             $image=$request->image;
             $imageName=$id.'-'.time().'.'.$request->image->extension();
             $image->move(public_path('/profile_pic'),$imageName);
-            User::where('id',$id)->update(['image'=>$imageName]);   
+            // Create a Small Thumbnail
+            $sourcePath=public_path('profile_pic/'.$imageName);
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read($sourcePath);
+            // crop the best fitting 5:3 (150x150) ratio and resize to 600x360 pixel
+            $image->cover(150, 150);
+            $image->toPng()->save(public_path('profile_pic/thumb/'.$imageName));
+            // Delete old Profile pic
+            File::delete(public_path('profile_pic/thumb/'.Auth::user()->image));
+            File::delete(public_path('profile_pic/'.Auth::user()->image));
 
+            User::where('id',$id)->update(['image'=>$imageName]); 
             session()->flash('success','Profile Pic Uploaded Successfully');
             return response()->json([
                 'status'=>true,

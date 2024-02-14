@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\jobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,8 @@ Route::group(['user'],function(){
         Route::put('user/updated-profile',[AuthController::class,'updateProfile'])->name('user.updateprofile');
         Route::get('user/logout',[AuthController::class,'logout'])->name('user.logout');
         Route::post('user/updated-profile-pic',[AuthController::class,'updateProfilePic'])->name('user.updateprofilepic');
+        Route::get('user/create-job',[JobController::class,'createJob'])->name('user.createJob');
+        Route::post('user/save-job',[JobController::class,'saveJob'])->name('user.saveJob');
+        Route::get('user/my-jobs',[JobController::class,'myJobs'])->name('user.myJobs');
     });
 });
