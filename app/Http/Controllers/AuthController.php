@@ -83,6 +83,7 @@ class AuthController extends Controller
             'user'=>$user,
         ]);
     }
+    // This method will Update Name ,Email,Drsignation,mobile
     public function updateProfile(Request $request)
     {
         $id = Auth::user()->id;
@@ -117,7 +118,7 @@ class AuthController extends Controller
         session()->flush();
         return redirect()->route('user.login')->with('success','User Logout Succsssfully');
     }
-
+    // This Method will Upload profile pic
     public function updateProfilePic(Request $request)
     {
         $id = Auth::user()->id;

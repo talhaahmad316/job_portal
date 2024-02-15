@@ -33,5 +33,8 @@ Route::group(['user'],function(){
         Route::get('user/create-job',[JobController::class,'createJob'])->name('user.createJob');
         Route::post('user/save-job',[JobController::class,'saveJob'])->name('user.saveJob');
         Route::get('user/my-jobs',[JobController::class,'myJobs'])->name('user.myJobs');
+        Route::get('user/my-jobs/edit/{jobId}',[JobController::class,'editJobs'])->name('user.editJobs');
+        Route::post('user/update-job/{jobId}',[JobController::class,'updateJob'])->name('user.updateJob');
+        Route::post('user/delete-job',[JobController::class,'deleteJob'])->name('user.deleteJob');
     });
 });

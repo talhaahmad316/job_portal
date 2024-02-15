@@ -21,14 +21,14 @@
             </div>
             <div class="col-lg-9">
                 @include('partisals.alert')
-                <form action="" method="post" id="createJobForm" name="createJobForm">
+                <form action="" method="post" id="editJobForm" name="editJobForm">
                     <div class="card border-0 shadow mb-4 ">
                         <div class="card-body card-form p-4">
-                            <h3 class="fs-4 mb-1">Job Details</h3>
+                            <h3 class="fs-4 mb-1">Edit Jobs Details</h3>
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label for="title" class="form-label mb-2">Title<span class="req">*</span></label>
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Job Title">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Job Title" value="{{ $job->title }}">
                                     <p></p>
                                 </div>
                                 <div class="col-md-6 mb-4">
@@ -37,7 +37,8 @@
                                         <option selected disabled>Select a Category</option>
                                         @if($categories->isNotEmpty())
                                             @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option {{ ($job->category_id == $category->id ? 'selected' : '') }} 
+                                                value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -52,7 +53,8 @@
                                         <option selected disabled>Select a Job Type</option>
                                         @if ($jobtypes->isNotEmpty())
                                             @foreach ($jobtypes as $jobtype)
-                                            <option value="{{ $jobtype->id }}">{{ $jobtype->name }}</option>
+                                            <option {{ ($job->job_type_id == $jobtype->id ? 'selected' : '') }} 
+                                                value="{{ $jobtype->id }}">{{ $jobtype->name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -60,7 +62,7 @@
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label for="vacancy" class="form-label mb-2">Vacancy<span class="req">*</span></label>
-                                    <input type="number" min="1" class="form-control" id="vacancy" name="vacancy" placeholder="Vacancy">
+                                    <input type="number" min="1" class="form-control" id="vacancy" name="vacancy" placeholder="Vacancy" value="{{ $job->vacancy }}">
                                     <p></p>
                                 </div>
                             </div>
@@ -68,55 +70,55 @@
                             <div class="row">
                                 <div class="mb-4 col-md-6">
                                     <label for="" class="mb-2">Salary</label>
-                                    <input type="text" placeholder="Salary" id="salary" name="salary" class="form-control">
+                                    <input type="text" placeholder="Salary" id="salary" name="salary" class="form-control" value="{{ $job->salary }}">
                                 </div>
     
                                 <div class="mb-4 col-md-6">
                                     <label for="" class="mb-2">Location<span class="req">*</span></label>
-                                    <input type="text" placeholder="location" id="location" name="location" class="form-control">
+                                    <input type="text" placeholder="location" id="location" name="location" class="form-control" value="{{ $job->location }}">
                                 </div>
                                 <p></p>
                             </div>
                             
                             <div class="mb-4">
                                 <label for="" class="mb-2">Description<span class="req">*</span></label>
-                                <textarea class="form-control" name="description" id="description" cols="5" rows="5" placeholder="Description"></textarea>
+                                <textarea class="form-control" name="description" id="description" cols="5" rows="5" placeholder="Description">{{ $job->description }}</textarea>
                             </div>
                             <p></p>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Benefits</label>
-                                <textarea class="form-control" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits"></textarea>
+                                <textarea class="form-control" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits">{{ $job->benefits }}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Responsibility</label>
-                                <textarea class="form-control" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility"></textarea>
+                                <textarea class="form-control" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility">{{ $job->responsibility }}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Qualifications</label>
-                                <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications"></textarea>
+                                <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications">{{ $job->qualifications }}</textarea>
                             </div>
                             
                             <div class="mb-4">
                                 <label for="" class="mb-2">Experiance<span class="req">*</span></label>
                                 <select name="experience" id="experience" class="form-control">
-                                    <option value="1">1 Year</option>
-                                    <option value="2">2 Year</option>
-                                    <option value="3">3 Year</option>
-                                    <option value="4">4 Year</option>
-                                    <option value="5">5 Year</option>
-                                    <option value="6">6 Year</option>
-                                    <option value="7">7 Year</option>
-                                    <option value="8">8 Year</option>
-                                    <option value="9">9 Year</option>
-                                    <option value="10">10 Year</option>
-                                    <option value="10_plus">10+ Year</option>
+                                    <option value="1" {{ ($job->experience == 1) ? 'selected' : '' }}>1 Year</option>
+                                    <option value="2" {{ ($job->experience == 2) ? 'selected' : '' }}>2 Year</option>
+                                    <option value="3" {{ ($job->experience == 3) ? 'selected' : '' }}>3 Year</option>
+                                    <option value="4" {{ ($job->experience == 4) ? 'selected' : '' }}>4 Year</option>
+                                    <option value="5" {{ ($job->experience == 5) ? 'selected' : '' }}>5 Year</option>
+                                    <option value="6" {{ ($job->experience == 6) ? 'selected' : '' }}>6 Year</option>
+                                    <option value="7" {{ ($job->experience == 7) ? 'selected' : '' }}>7 Year</option>
+                                    <option value="8" {{ ($job->experience == 8) ? 'selected' : '' }}>8 Year</option>
+                                    <option value="9" {{ ($job->experience == 9) ? 'selected' : '' }}>9 Year</option>
+                                    <option value="10" {{ ($job->experience == 10) ? 'selected' : '' }}>10 Year</option>
+                                    <option value="10_plus" {{ ($job->experience == '10_plus') ? 'selected' : '' }}>10+ Year</option>
                                 </select>
                             </div>
                             <p></p>
                             
                             <div class="mb-4">
                                 <label for="" class="mb-2">Keywords</label>
-                                <input type="text" placeholder="keywords" id="keywords" name="keywords" class="form-control">
+                                <input type="text" placeholder="keywords" id="keywords" name="keywords" class="form-control" value="{{ $job->keywords }}">
                             </div>
     
                             <h3 class="fs-4 mb-1 mt-5 border-top pt-5">Company Details</h3>
@@ -124,23 +126,23 @@
                             <div class="row">
                                 <div class="mb-4 col-md-6">
                                     <label for="" class="mb-2">Name<span class="req">*</span></label>
-                                    <input type="text" placeholder="Company Name" id="company_name" name="company_name" class="form-control">
+                                    <input type="text" placeholder="Company Name" id="company_name" name="company_name" class="form-control" value="{{ $job->company_name }}">
                                 </div>
                                 <p></p>
     
                                 <div class="mb-4 col-md-6">
                                     <label for="" class="mb-2">Location</label>
-                                    <input type="text" placeholder="Location" id="company_location" name="company_location" class="form-control">
+                                    <input type="text" placeholder="Location" id="company_location" name="company_location" class="form-control" value="{{ $job->company_location }}">
                                 </div>
                             </div>
     
                             <div class="mb-4">
                                 <label for="" class="mb-2">Website</label>
-                                <input type="text" placeholder="Website" id="company_website" name="company_website" class="form-control">
+                                <input type="text" placeholder="Website" id="company_website" name="company_website" class="form-control" value="{{ $job->company_website }}">
                             </div>
                         </div> 
                         <div class="card-footer  p-4">
-                            <button type="submit" class="btn btn-primary">Save Job</button>
+                            <button type="submit" class="btn btn-primary">Update Job</button>
                         </div>               
                 </div>
                 </form>          
@@ -151,15 +153,15 @@
 @stop
 @section('cuntomjs')
 <script type="text/javascript">
-$("#createJobForm").submit(function(e){
+$("#editJobForm").submit(function(e){
     e.preventDefault();
     $("button[type='submit']").prop('disabled',true);
 
     $.ajax({
-        url:'{{ route("user.saveJob") }}',
+        url:'{{ route("user.updateJob",$job->id) }}',
         type:'post',
         dataType:'json',
-        data:$("#createJobForm").serializeArray(),
+        data:$("#editJobForm").serializeArray(),
         success: function(respone){
             $("button[type='submit']").prop('disabled',false);
             if(respone.status == true){
