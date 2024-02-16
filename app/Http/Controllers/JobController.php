@@ -70,7 +70,10 @@ class JobController extends Controller
     //This method will show Jobs data in Table
     public function myJobs()
     {
-        $jobs = Job::where('user_id',Auth::user()->id)->with('jobType')->paginate(10);
+        $jobs = Job::where('user_id',Auth::user()->id)
+                     ->with('jobType')
+                     ->orderBy('created_at','DESC')
+                     ->paginate(10);
         return view('jobs.my-jobs',[
             'jobs'=>$jobs
         ]);

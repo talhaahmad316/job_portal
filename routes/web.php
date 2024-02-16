@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\jobController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\jobController;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/jobs',[JobsController::class,'index'])->name('jobs');
 
 Route::group(['user'],function(){
     Route::group(['middleware'=>'guest'],function(){
